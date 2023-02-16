@@ -16,6 +16,17 @@ class Dict {
       this.words[word.term] = word.def;
     }
   }
+  del(term: string) {
+    if (this.words[term]) {
+      this.words[term] = "";
+      delete this.words[term];
+    }
+  }
+  update(term: string, def: string) {
+    if (this.words[term]) {
+      this.words[term] = def;
+    }
+  }
   def(term: string) {
     return console.log(this.words[term]);
   }
@@ -26,3 +37,9 @@ const dict = new Dict();
 
 dict.add(kimchi);
 dict.def("kimchi");
+dict.def("egg");
+console.log(dict);
+dict.update("kimchi", "spicy cabbage");
+dict.def("kimchi");
+dict.del("kimchi");
+console.log(dict);
