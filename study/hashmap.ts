@@ -16,30 +16,67 @@ class Dict {
       this.words[word.term] = word.def;
     }
   }
-  del(term: string) {
-    if (this.words[term]) {
-      this.words[term] = "";
-      delete this.words[term];
+  deleteWord(term: string) {
+    if (this.words[term] != undefined) {
+      (this.words[term] = ""), delete this.words[term];
     }
   }
-  update(term: string, def: string) {
-    if (this.words[term]) {
-      this.words[term] = def;
-    }
+  updateWord(term: string, def: string) {
+    if (this.words[term] != undefined) this.words[term] = def;
   }
-  def(term: string) {
-    return console.log(this.words[term]);
+  upsert(word: Word) {
+    this.words[word.term] = word.def;
+  }
+  count() {
+    const arrTerm = Object.keys(this.words);
+    return arrTerm.length;
+  }
+  showAll() {
+    console.log(Object.keys(this.words));
+  }
+  getWord(term: string) {
+    return this.words[term];
+  }
+  exists(term: string) {
+    return Boolean(this.words[term] == undefined);
+  }
+  bulkAdd(arrWord: Word[]) {
+    arrWord.forEach((word) => {
+      this.add(word);
+    });
+  }
+  bulkDelete(words: string[]) {
+    words.forEach((word) => {
+      this.deleteWord(word);
+    });
   }
 }
 
-const kimchi = new Word("kimchi", "korean traditional food");
 const dict = new Dict();
+const kimchi = new Word("kimchi", "Korean traditional food.");
+const tmp = new Word("kimchi", "Korean traditional food and Spicy Cabbage.");
+const gim = new Word("gim", "Just Seaweed");
+const bibimbap = new Word("bibimbap", "Mixing rice with many ingredients.");
+const bulgogi = new Word(
+  "bulgogi",
+  `a gui made of thin, marinated slices of meat, 
+most commonly beef, grilled on a barbecue or on a stove-top griddle.`
+);
 
+/*
 dict.add(kimchi);
-dict.def("kimchi");
-dict.def("egg");
-console.log(dict);
-dict.update("kimchi", "spicy cabbage");
-dict.def("kimchi");
-dict.del("kimchi");
-console.log(dict);
+console.log(dict.getWord("kimchi"));
+dict.updateWord("kimchi", "Spicy Cabbage");
+console.log(dict.getWord("kimchi"));
+dict.upsert(tmp);
+dict.upsert(gim);
+console.log(dict.getWord("gim"));
+console.log(dict.getWord("kimchi"));
+console.log(dict.count());
+dict.showAll();
+dict.deleteWord("gim");
+dict.bulkAdd([bibimbap, bulgogi]);
+dict.showAll();
+dict.bulkDelete(["kimchi", "Bulgogi"])
+dict.showAll();
+*/
