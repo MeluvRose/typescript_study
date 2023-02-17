@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "target": "ES6",
     "lib": ["ES6", "DOM"], // running environment, api, ...
-    "strict": true
+    "strict": true,
+    "allowJs": true
   }
 }
